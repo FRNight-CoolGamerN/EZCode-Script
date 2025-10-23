@@ -591,6 +591,7 @@ end
 -- ===========================================================================
 -- HACK UNIVERSE LOADING SYSTEM WITH 50 SCRIPTS
 -- ===========================================================================
+
 -- ===========================================================================
 -- FIXED HACK UNIVERSE INTERFACE WITH EXPANDED SCRIPTS
 -- ===========================================================================
@@ -1083,3 +1084,74 @@ local function loadAllHacks()
     print("✓ Scrollable Tabs & Scripts Active")
     print("✓ 100+ Scripts Ready for Execution")
 end
+-- ===========================================================================
+-- EVENT HANDLERS
+-- ===========================================================================
+WebsiteButton.MouseButton1Click:Connect(function()
+    setclipboard(KEY_WEBSITE)
+    WebsiteButton.Text = "WEBSITE LINK COPIED!"
+    StatusLabel.Text = "Status: Website link copied to clipboard!"
+    StatusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+    wait(2)
+    WebsiteButton.Text = "GET KEY FROM WEBSITE"
+end)
+
+ValidateButton.MouseButton1Click:Connect(function()
+    local key = KeyInput.Text:gsub("%s+", "")
+    
+    if key == "" then
+        StatusLabel.Text = "Status: Please enter a quantum key"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+        return
+    end
+    
+    StatusLabel.Text = "Status: Validating quantum signature..."
+    StatusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+    ValidateButton.Text = "VALIDATING..."
+    
+    -- Simulate validation process
+    wait(1.5)
+    
+    if validateQuantumKey(key) then
+        StatusLabel.Text = "Status: Quantum key validated! Loading hacks..."
+        StatusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+        ValidateButton.Text = "ACCESS GRANTED"
+        
+        wait(1)
+        transitionToHackUniverse()
+    else
+        StatusLabel.Text = "Status: Invalid key - Get from website"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+        ValidateButton.Text = "VALIDATE QUANTUM KEY"
+        KeyInput.Text = ""
+    end
+end)
+
+-- ===========================================================================
+-- MAIN LOADING LOOP
+-- ===========================================================================
+local animationConnection
+animationConnection = RunService.Heartbeat:Connect(function(dt)
+    if currentScreen == "loading" then
+        updateLoadingAnimation(dt)
+        
+        if progress >= 1 then
+            animationConnection:Disconnect()
+            transitionToKeyScreen()
+        end
+    end
+end)
+
+print("EZCode Quantum System Initialized")
+print("Website: " .. KEY_WEBSITE)
+print("50 Different Scripts Ready:")
+print("🚪 DOORS (8 Scripts)")
+print("🔫 ARSENAL (7 Scripts)")
+print("🌐 UNIVERSAL (8 Scripts)")
+print("🍎 BLOX FRUITS (6 Scripts)")
+print("🐾 PET SIMULATOR X (5 Scripts)")
+print("🏠 BROOKHAVEN (4 Scripts)")
+print("🚓 JAILBREAK (4 Scripts)")
+print("🔪 MURDER MYSTERY 2 (4 Scripts)")
+print("🐶 ADOPT ME (4 Scripts)")
+print("The universe now has access to 50 different scripts!")
